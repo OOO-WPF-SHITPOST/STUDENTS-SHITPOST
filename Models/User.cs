@@ -13,26 +13,26 @@ namespace Nedelyaeva.Models
         [Column("group_id")]
         public int? GroupId { get; set; }
 
-        [Required]
+        
         [Column("last_name")]
         public string LastName { get; set; }
 
-        [Required]
+        
         [Column("first_name")]
         public string FirstName { get; set; }
 
         [Column("middle_name")]
         public string MiddleName { get; set; }
 
-        [Required]
+        
         [Column("role")]
         public string Role { get; set; } // teacher | student
 
-        [Required]
+        
         [Column("login")]
         public string Login { get; set; }
 
-        [Required]
+        
         [Column("password")]
         public string Password { get; set; }
 

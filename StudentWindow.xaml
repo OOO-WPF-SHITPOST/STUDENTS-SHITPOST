@@ -1,0 +1,32 @@
+﻿<Window x:Class="Nedelyaeva.StudentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nedelyaeva"
+        mc:Ignorable="d"
+        Title="StudentWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal" Margin="10" 
+                    VerticalAlignment="Center" Grid.Row="0">
+            <Button Content="Обновить" Click="Student_Refresh_Click" Margin="5,0"/>
+            <Button Content="Выйти" Click="Logout_Click" Margin="5,0"/>
+        </StackPanel>
+
+        <GroupBox Header="Мои оценки" Margin="5,40,5,5" Grid.Row="1">
+            <DataGrid x:Name="MyGradesGrid" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Дисциплина" Binding="{Binding SubjectName}" Width="*"/>
+                    <DataGridTextColumn Header="Оценка" Binding="{Binding GradeValue}" Width="80"/>
+                    <DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt}" Width="140"/>
+                    <DataGridTextColumn Header="Удалён" Binding="{Binding IsDeleted}" Width="80"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</Window>
