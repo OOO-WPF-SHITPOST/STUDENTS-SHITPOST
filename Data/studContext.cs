@@ -1,10 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Nedelyaeva.Models;
 
-namespace Nedelyaeva.Data
-{
-    public sealed class studContext : DbContext
-    {
+namespace Nedelyaeva.Data {
+    public sealed class studContext: DbContext {
         private static readonly studContext _instance = new studContext();
 
         public static studContext Instance => _instance;
@@ -15,52 +13,47 @@ namespace Nedelyaeva.Data
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Grade> Grades { get; set; }
 
-        private studContext()
-        {
+        private studContext() {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
+        protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder ) {
+            if ( !optionsBuilder.IsConfigured ) {
                 // Подключение к локальной БД stud, Trusted Connection (Windows auth)
-                optionsBuilder.UseSqlServer("Server=localhost;Database=stud;Trusted_Connection=True;TrustServerCertificate=True;");
-
+                optionsBuilder.UseSqlServer( "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=stud" );
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Group>().ToTable("Groups");
-            modelBuilder.Entity<User>().ToTable("Users");
-            modelBuilder.Entity<Subject>().ToTable("Subjects");
-            modelBuilder.Entity<Grade>().ToTable("Grades");
+        protected override void OnModelCreating( ModelBuilder modelBuilder ) {
+            modelBuilder.Entity<Group>().ToTable( "Groups" );
+            modelBuilder.Entity<User>().ToTable( "Users" );
+            modelBuilder.Entity<Subject>().ToTable( "Subjects" );
+            modelBuilder.Entity<Grade>().ToTable( "Grades" );
 
             modelBuilder.Entity<User>()
                 .HasOne<Group>()
                 .WithMany()
-                .HasForeignKey(u => u.GroupId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey( u => u.GroupId )
+                .OnDelete( DeleteBehavior.Restrict );
 
             modelBuilder.Entity<Subject>()
                 .HasOne<User>()
                 .WithMany()
-                .HasForeignKey(s => s.TeacherId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey( s => s.TeacherId )
+                .OnDelete( DeleteBehavior.Restrict );
 
             modelBuilder.Entity<Grade>()
                 .HasOne<User>()
                 .WithMany()
-                .HasForeignKey(g => g.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey( g => g.StudentId )
+                .OnDelete( DeleteBehavior.Restrict );
 
             modelBuilder.Entity<Grade>()
                 .HasOne<Subject>()
                 .WithMany()
-                .HasForeignKey(g => g.SubjectId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey( g => g.SubjectId )
+                .OnDelete( DeleteBehavior.Restrict );
 
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating( modelBuilder );
         }
     }
 }
